@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "gameleaderbot"
+version = "0.1.0"
+description = "Leaderboard telegram bot"
+authors = ["Vadim Yakshigulov <toadharvard@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sqlalchemy = "^2.0.30"
+sqlalchemy-mixins = "^2.0.5"
+aiogram = "^3.7.0"
+pydantic = "^2.7.2"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.7"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+ignore = ["F403", "F405"]
