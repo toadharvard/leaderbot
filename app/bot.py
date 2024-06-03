@@ -37,7 +37,11 @@ async def cmd_start(message: Message, state: FSMContext):
     find_or_create_user(message.from_user.id)
     await state.set_state(RatingStates.start)
     await message.answer(
-        "Welcome! Please choose an option:", reply_markup=start_keyboard()
+        "Welcome to the Bot! This bot allows you to create, manage, and play ratings. It has the following main functions:\n\n"
+        "1. Create a new rating: This allows you to create a new rating system. You can give it a unique name and add participants to the rating.\n\n"
+        "2. Load an existing rating: If you have created a rating before, you can load it and start managing it further.\n\n"
+        "3. Play a game: If you have a rating with at least two participants, you can start a game to assign ranks to the participants.\n\n"
+        "To get started, please choose an option below:", reply_markup=start_keyboard()
     )
 
 
@@ -57,7 +61,7 @@ async def create_rating(callback: CallbackQuery, state: FSMContext):
     )
 
 
-@dp.message(RatingStates.new_rating)
+@dp.message(RatingStates.new_rating, F.text)
 async def receive_new_rating_name(message: Message, state: FSMContext):
     rating_name = message.text
     rating = create_rating_by_name(rating_name, message.from_user.id)
@@ -134,7 +138,7 @@ async def add_participant(callback: CallbackQuery, state: FSMContext):
     )
 
 
-@dp.message(RatingStates.add_participant)
+@dp.message(RatingStates.add_participant, F.text)
 async def receive_participant_name(message: Message, state: FSMContext):
     data = await state.get_data()
     rating_id = data.get("rating_id")
@@ -213,7 +217,7 @@ async def add_game(callback: CallbackQuery, state: FSMContext):
 
     if len(participants) < 2:
         await callback.message.edit_text(
-            "Not enough participants to start a game. Please add more participants.",
+            "Not enough participants to start a game.\nPlease add more participants.",
             reply_markup=rating_menu_keyboard(rating_id),
         )
         return
@@ -315,7 +319,11 @@ async def finish_ranking(callback: CallbackQuery, state: FSMContext):
 async def return_to_start(callback: CallbackQuery, state: FSMContext):
     await state.set_state(RatingStates.start)
     await callback.message.edit_text(
-        "Welcome again! Please choose an option:", reply_markup=start_keyboard()
+        "Welcome to the Bot! This bot allows you to create, manage, and play ratings. It has the following main functions:\n\n"
+        "1. Create a new rating: This allows you to create a new rating system. You can give it a unique name and add participants to the rating.\n\n"
+        "2. Load an existing rating: If you have created a rating before, you can load it and start managing it further.\n\n"
+        "3. Play a game: If you have a rating with at least two participants, you can start a game to assign ranks to the participants.\n\n"
+        "To get started, please choose an option below:", reply_markup=start_keyboard()
     )
 
 

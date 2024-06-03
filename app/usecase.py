@@ -149,15 +149,10 @@ def get_participant_by_id(player_id: int) -> Player | Exception:
 
 
 def get_metrics():
-    # Count all users of the bot
     total_users = db.query(User).count()
 
-    # Count all users with at least 1 created rating
     users_with_ratings = db.query(User).join(Rating).distinct().count()
-
-    # Count number of all created ratings
     total_ratings = db.query(Rating).count()
-    # Count number of all created games
     total_games = db.query(Game).count()
 
     return {
@@ -165,4 +160,5 @@ def get_metrics():
         "users_with_ratings": users_with_ratings,
         "total_games": total_games,
         "total_ratings": total_ratings,
+        "average_ratings": total_ratings / total_users if total_users > 0 else 0,
     }
