@@ -189,6 +189,36 @@ Win Rate: {stats.win_rate * 100:.2f}%
     )
 
 
+@dp.callback_query(F.data.startswith("show_rating_statistics"))
+async def show_rating_statistics(callback: CallbackQuery, state: FSMContext):
+    data = await state.get_data()
+    rating_id = data.get("rating_id")
+    participants = get_rating_participants(rating_id=rating_id)
+    formatted_stats = ""
+
+    for participant in participants:
+        stats = get_participant_statistics(participant.id)
+        if isinstance(stats, Exception):
+            await callback.message.edit_text(
+                "Participant not found. Select options:",
+                reply_markup=rating_menu_keyboard(rating_id),
+            )
+            return
+
+        formatted_stats += f"""
+Player: {stats.player.name}
+Rating: {stats.rating_value}
+Total games: {stats.played_games}
+Total wins: {stats.wins}
+Total losses: {stats.losses}
+Win Rate: {stats.win_rate * 100:.2f}%
+            """
+
+    await callback.message.edit_text(
+        formatted_stats,
+        reply_markup=return_to_rating_menu_keyboard(),
+    )
+
 @dp.callback_query(F.data == "delete_participant")
 async def delete_participant(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()

@@ -29,6 +29,7 @@ def rating_menu_keyboard(rating_id):
         InlineKeyboardButton(text="New Game", callback_data="add_game"),
         InlineKeyboardButton(text="Delete Rating", callback_data="delete_rating"),
         InlineKeyboardButton(text="Start Menu", callback_data="return_to_start"),
+        InlineKeyboardButton(text="Statistics", callback_data="show_rating_statistics"),
         width=2,
     )
 
