@@ -41,7 +41,8 @@ async def cmd_start(message: Message, state: FSMContext):
         "1. Create a new rating: This allows you to create a new rating system. You can give it a unique name and add participants to the rating.\n\n"
         "2. Load an existing rating: If you have created a rating before, you can load it and start managing it further.\n\n"
         "3. Play a game: If you have a rating with at least two participants, you can start a game to assign ranks to the participants.\n\n"
-        "To get started, please choose an option below:", reply_markup=start_keyboard()
+        "To get started, please choose an option below:",
+        reply_markup=start_keyboard(),
     )
 
 
@@ -323,7 +324,8 @@ async def return_to_start(callback: CallbackQuery, state: FSMContext):
         "1. Create a new rating: This allows you to create a new rating system. You can give it a unique name and add participants to the rating.\n\n"
         "2. Load an existing rating: If you have created a rating before, you can load it and start managing it further.\n\n"
         "3. Play a game: If you have a rating with at least two participants, you can start a game to assign ranks to the participants.\n\n"
-        "To get started, please choose an option below:", reply_markup=start_keyboard()
+        "To get started, please choose an option below:",
+        reply_markup=start_keyboard(),
     )
 
 
